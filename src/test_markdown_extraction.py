@@ -37,3 +37,5 @@ def test_improperly_formatted_links(self):
     )
     self.assertListEqual([], matches)
 
+if __name__ == "__main__":
+    unittest.main()
