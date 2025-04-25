@@ -3,7 +3,7 @@ import htmlnode
 from htmlnode import LeafNode
 
 class TextType(Enum):
-    NORMAL = "normal"
+    TEXT = "normal"
     BOLD = "bold"
     ITALIC = "italic"
     CODE = "code"
@@ -28,7 +28,7 @@ class TextNode:
 
 def text_node_to_html_node(text_node):
     match text_node.text_type:
-        case TextType.NORMAL:
+        case TextType.TEXT:
             return LeafNode(tag=None, value=text_node.text)
         case TextType.BOLD:
             return LeafNode(tag="b", value=text_node.text)

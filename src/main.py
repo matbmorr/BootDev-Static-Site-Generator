@@ -1,4 +1,5 @@
 import textnode
+import htmlnode
 
 def main():
     dummy_node = textnode.TextNode("This is some anchor text", textnode.TextType.LINK, "https://www.boot.dev")
