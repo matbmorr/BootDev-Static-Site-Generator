@@ -1,5 +1,5 @@
 from enum import Enum
-from markdown_to_blocks import markdown_to_blocks
+
 
 class BlockType(Enum):
     PARAGRAPH = "paragraph"

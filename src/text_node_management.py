@@ -1,32 +1,7 @@
-from enum import Enum
 from htmlnode import LeafNode
-
-
-
-class TextType(Enum):
-    TEXT = "normal"
-    BOLD = "bold"
-    ITALIC = "italic"
-    CODE = "code"
-    LINK = "link"
-    IMAGE = "image"
-
-class TextNode:
-    def __init__(self, text, text_type, url=None):
-        self.text = text
-        self.text_type = text_type
-        self.url = url
-
-
-    def __eq__(self, other):
-        if isinstance(other, TextNode):
-            return ((self.text == other.text) and (self.text_type == other.text_type) and (self.url == other.url))
-        return False
-    
-    def __repr__(self):
-        return (f"TextNode({self.text}, {self.text_type.value}, {self.url})")
-
-
+from textnode import TextType, TextNode
+from split_delimiter import split_nodes_delimiter
+from split_nodes import split_nodes_image,split_nodes_link
 def text_node_to_html_node(text_node):
     match text_node.text_type:
         case TextType.TEXT:
@@ -44,3 +19,18 @@ def text_node_to_html_node(text_node):
         case c_:
             raise Exception("Type not found")
         
+
+def text_to_textnodes(text):
+    nodes = [TextNode(text, TextType.TEXT)]
+
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALICS)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+
+    return nodes
+
+def text_to_children(text):
+    text_nodes = text_to_textnodes(text)
+    return [text_node_to_html_node(text_node) for text_node in text_nodes]

@@ -1,6 +1,6 @@
 import unittest
 from textnode import TextNode, TextType
-from text_to_textnode import text_to_textnodes
+from text_node_management import text_to_textnodes
 
 def test_all_types(self):
     text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
