@@ -5,7 +5,9 @@ from page_generation import generate_pages_recursive
 
 
 basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
-
+if basepath != "/":
+    basepath = basepath.rstrip("/")
+print(f"basepath: {basepath}")
 
 def copy_directory(source, destination):
     # First ensure the destination is clean
