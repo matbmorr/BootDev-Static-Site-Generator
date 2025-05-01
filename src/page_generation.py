@@ -18,11 +18,12 @@ def generate_page(from_path, template_path, dest_path, basepath):
     
     final_html = template_content.replace("{{ Title }}", title)
     final_html = final_html.replace("{{ Content }}", html_content)
-    # Replace href="/" with href="{basepath}"
-    final_html = final_html.replace('href="/', f'href="{basepath}')
-    # Replace src="/" with src="{basepath}"
-    final_html = final_html.replace('src="/', f'src="{basepath}')
-    
+    if basepath == "/":
+        replacement = "/"
+    else:
+        replacement = basepath + "/"
+    final_html = final_html.replace('href="/', f'href="{replacement}')
+    final_html = final_html.replace('src="/', f'src="{replacement}')
     import os
     
     # Make sure the directory exists
