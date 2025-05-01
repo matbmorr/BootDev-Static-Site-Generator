@@ -1,5 +1,6 @@
 import os
 import shutil
+from page_generation import generate_pages_recursive
 
 def copy_directory(source, destination):
     # First ensure the destination is clean
@@ -30,6 +31,7 @@ def copy_directory(source, destination):
 
 def main():
     copy_directory("static", "public")
+    generate_pages_recursive("content", "template.html", "public")
     
 if __name__ == "__main__":
     main()
