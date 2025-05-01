@@ -2,7 +2,7 @@ from markdown_to_blocks import markdown_to_html_node
 from markdown_extraction import extract_title
 import htmlnode
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     print (f"Generating page from {from_path} to {dest_path} using {template_path}.")
 
     with open(from_path, 'r') as file:
@@ -18,6 +18,10 @@ def generate_page(from_path, template_path, dest_path):
     
     final_html = template_content.replace("{{ Title }}", title)
     final_html = final_html.replace("{{ Content }}", html_content)
+    # Replace href="/" with href="{basepath}"
+    final_html = final_html.replace('href="/', f'href="{basepath}')
+    # Replace src="/" with src="{basepath}"
+    final_html = final_html.replace('src="/', f'src="{basepath}')
     
     import os
     
@@ -31,7 +35,7 @@ def generate_page(from_path, template_path, dest_path):
 
 import os
 
-def generate_pages_recursive(content_dir, template_path, dest_dir):
+def generate_pages_recursive(content_dir, template_path, dest_dir, basepath):
     # Walk through all directories under content_dir
     for root, dirs, files in os.walk(content_dir):
         for file in files:
@@ -51,4 +55,4 @@ def generate_pages_recursive(content_dir, template_path, dest_dir):
                 )
                 
                 # Generate the page
-                generate_page(source_path, template_path, dest_path)
+                generate_page(source_path, template_path, dest_path, basepath)
